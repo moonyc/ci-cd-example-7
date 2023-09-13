@@ -11,17 +11,19 @@ jobs:
   test:
     environment: testing
     runs-on: ubuntu-latest
-    container: 
-      image: node:16
+    # container: 
+    #   image: node:16
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb
-      MONGODB_CLUSTER_ADDRESS: mongodb # same name as service
+      MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27017 # same name as service
       MONGODB_USERNAME: root
       MONGODB_PASSWORD: toor
       PORT: 8080
     services: 
       mongodb:
         image: mongo
+        ports:
+          - 27017:27017 # the internal port should be forwarder to the port on the runner machine
         env:
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: toor
